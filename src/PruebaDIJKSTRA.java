@@ -156,7 +156,50 @@ class Grafo {
 public class PruebaDIJKSTRA {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		Scanner entrada = new Scanner (System.in);
+		System.out.println("Algoritmo DIJKSTRA");
+		System.out.println("¿Cuantos Vertices vas a gregar?");
+		int num=entrada.nextInt();
+		entrada.nextLine();
+		String cadenaGrafos="";
+		for(int i=0; i<num; i++) {
+			System.out.println("Nombre del vertice: "+(i+1) +"(Ingresa una letra)");
+			cadenaGrafos=cadenaGrafos+entrada.nextLine();
+		}
+		  Grafo grafo = new Grafo(cadenaGrafos);
+		  byte menu=0;
+		  
+		  do {
+			  System.out.println("------------Menu----------");
+			  System.out.println("1. Agregar ruta (Arco de vertice a vertice)");
+			  System.out.println("2. Ver camino mas corto");
+			  System.out.println("3. Salir");
+			  menu=entrada.nextByte();
+			  switch(menu) {
+			  case 1: 
+				  System.out.println("Ingresa nombre de el vertice origen");
+				  char origen=entrada.next().charAt(0);
+				  System.out.println("Ingresa nombre de el vertice destino");
+				  char destino=entrada.next().charAt(0);
+				  System.out.println("Ingresa el peso/distancia");
+				  int distancia=entrada.nextInt();
+				  grafo.agregarRuta(origen, destino, distancia);
+				  break;
+			  case 2:
+				  System.out.println("Ingresa vertice inicial a recorrer");
+				  char inicio=entrada.next().charAt(0);
+				  System.out.println("Ingresa vertice final a recorrer");
+				  char fin=entrada.next().charAt(0);
+				  System.out.println("El camino mas corto es:");
+				  String respuesta = grafo.encontrarRutaMinimaDijkstra(inicio, fin);
+			        System.out.println(respuesta);
+			        break;
+			  case 3: break;
+			  default: System.out.println("Opcion no valida!!");
+				  
+			  }
+		  }while(menu!=3);
+	      entrada.close();
 
 	}
 

@@ -69,6 +69,39 @@ class Grafo {
         while(!pila.isEmpty()) ruta+=(pila.pop().id + " ");
         return distancia + ": " + ruta;
     }
+    
+ // encuentra la ruta más corta desde el nodo inicial a todos los demás
+    public void encontrarRutaMinimaDijkstra(char inicio) {
+    	 Queue<Nodo>   cola = new PriorityQueue<Nodo>(); // cola de prioridad
+        Nodo            ni = new Nodo(inicio);          // nodo inicial
+         
+        listos = new LinkedList<Nodo>();// lista de nodos ya revisados
+        cola.add(ni);                   // Agregar nodo inicial a la cola de prioridad
+        while(!cola.isEmpty()) {        // mientras que la cola no esta vacia
+            Nodo tmp = cola.poll();     // saca el primer elemento
+            listos.add(tmp);            // lo manda a la lista de terminados
+            int p = posicionNodo(tmp.id);   
+            for(int j=0; j<grafo[p].length; j++) {  // revisa los nodos hijos del nodo tmp
+                if(grafo[p][j]==0) continue;        // si no hay conexión no lo evalua
+                if(estaTerminado(j)) continue;      // si ya fue agregado a la lista de terminados
+                Nodo nod = new Nodo(nodos[j],tmp.distancia+grafo[p][j],tmp);
+                // si no está en la cola de prioridad, lo agrega
+                if(!cola.contains(nod)) {
+                    cola.add(nod);
+                    continue;
+                }
+                // si ya está en la cola de prioridad actualiza la distancia menor
+                for(Nodo x: cola) {
+                    // si la distancia en la cola es mayor que la distancia calculada
+                    if(x.id==nod.id && x.distancia > nod.distancia) {
+                        cola.remove(x); // remueve el nodo de la cola
+                        cola.add(nod);  // agrega el nodo con la nueva distancia
+                        break;          // no sigue revisando
+                    }
+                }
+            }
+        }
+    }
 
 public class PruebaDIJKSTRA {
 

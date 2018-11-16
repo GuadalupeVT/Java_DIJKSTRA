@@ -39,6 +39,13 @@ class Grafo {
         grafo[n1][n2]=distancia;
         grafo[n2][n1]=distancia;
     }
+ // retorna la posición en el arreglo de un nodo específico
+    private int posicionNodo(char nodo) {
+        for(int i=0; i<nodos.length; i++) {
+            if(nodos[i]==nodo) return i;
+        }
+        return -1;
+    }
 
 public class PruebaDIJKSTRA {
 

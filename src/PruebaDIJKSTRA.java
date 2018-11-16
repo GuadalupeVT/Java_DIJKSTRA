@@ -107,6 +107,51 @@ class Grafo {
         Nodo tmp = new Nodo(nodos[j]);
         return listos.contains(tmp);
     }
+    // encontrar la ruta mínima por fuerza bruta
+    public void encontrarRutaMinimaFuerzaBruta(char inicio, char fin) {
+        int p1 = posicionNodo(inicio);
+        int p2 = posicionNodo(fin);
+        // cola para almacenar cada ruta que está siendo evaluada
+        Stack<Integer> resultado = new Stack<Integer>();
+        resultado.push(p1);
+        recorrerRutas(p1, p2, resultado);
+    }
+ // recorre recursivamente las rutas entre un nodo inicial y un nodo final
+    // almacenando en una cola cada nodo visitado
+    private void recorrerRutas(int nodoI, int nodoF, Stack<Integer> resultado) {
+        // si el nodo inicial es igual al final se evalúa la ruta en revisión
+        if(nodoI==nodoF) {
+            int respuesta = evaluar(resultado);
+            if(respuesta < longitudMasCorta) {
+                longitudMasCorta = respuesta;
+                rutaMasCorta     = "";
+                for(int x: resultado) rutaMasCorta+=(nodos[x]+" ");
+            }
+            return;
+        }
+        // Si el nodoInicial no es igual al final se crea una lista con todos los nodos
+        // adyacentes al nodo inicial que no estén en la ruta en evaluación
+        List<Integer> lista = new Vector<Integer>();
+        for(int i=0; i<grafo.length;i++) {
+            if(grafo[nodoI][i]!=0 && !resultado.contains(i))lista.add(i);
+        }
+        // se recorren todas las rutas formadas con los nodos adyacentes al inicial
+        for(int nodo: lista) {
+            resultado.push(nodo);
+            recorrerRutas(nodo, nodoF, resultado);
+            resultado.pop();
+        }
+    }
+ // evaluar la longitud de una ruta
+    public int evaluar(Stack<Integer> resultado) {
+        int  resp = 0;
+        int[]   r = new int[resultado.size()];
+        int     i = 0;
+        for(int x: resultado) r[i++]=x;
+        for(i=1; i<r.length; i++) resp+=grafo[r[i]][r[i-1]];
+        return resp;
+    }
+}//Class Grafo
 
 public class PruebaDIJKSTRA {
 

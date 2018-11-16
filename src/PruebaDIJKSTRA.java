@@ -19,7 +19,19 @@ class Nodo implements Comparable<Nodo> {
         if(tmp.id==this.id) return true;
         return false;
     }
-}
+}//Class Nodo
+
+class Grafo {
+    char[]  nodos;  // Letras de identificación de nodo
+    int[][] grafo;  // Matriz de distancias entre nodos
+    String  rutaMasCorta;                           // distancia más corta
+    int     longitudMasCorta = Integer.MAX_VALUE;   // ruta más corta
+    List<Nodo>  listos=null;                        // nodos revisados Dijkstra
+ // construye el grafo con la serie de identificadores de nodo en una cadena
+    Grafo(String serieNodos) {
+        nodos = serieNodos.toCharArray();
+        grafo = new int[nodos.length][nodos.length];
+    }
 
 public class PruebaDIJKSTRA {
 

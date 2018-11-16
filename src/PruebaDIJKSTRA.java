@@ -32,6 +32,13 @@ class Grafo {
         nodos = serieNodos.toCharArray();
         grafo = new int[nodos.length][nodos.length];
     }
+ // asigna el tamaño de la arista entre dos nodos
+    public void agregarRuta(char origen, char destino, int distancia) {
+        int n1 = posicionNodo(origen);
+        int n2 = posicionNodo(destino);
+        grafo[n1][n2]=distancia;
+        grafo[n2][n1]=distancia;
+    }
 
 public class PruebaDIJKSTRA {
 

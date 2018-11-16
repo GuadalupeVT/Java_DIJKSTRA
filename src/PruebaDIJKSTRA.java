@@ -102,6 +102,11 @@ class Grafo {
             }
         }
     }
+ // verifica si un nodo ya está en lista de terminados
+    public boolean estaTerminado(int j) {
+        Nodo tmp = new Nodo(nodos[j]);
+        return listos.contains(tmp);
+    }
 
 public class PruebaDIJKSTRA {
 

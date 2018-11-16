@@ -46,6 +46,29 @@ class Grafo {
         }
         return -1;
     }
+    // encuentra la ruta más corta desde un nodo origen a un nodo destino
+    public String encontrarRutaMinimaDijkstra(char inicio, char fin) {
+        // calcula la ruta más corta del inicio a los demás
+        encontrarRutaMinimaDijkstra(inicio);
+        // recupera el nodo final de la lista de terminados
+        Nodo tmp = new Nodo(fin);
+        if(!listos.contains(tmp)) {
+            System.out.println("Error, nodo no alcanzable");
+            return "Bye";
+        }
+        tmp = listos.get(listos.indexOf(tmp));
+        int distancia = tmp.distancia;  
+        // crea una pila para almacenar la ruta desde el nodo final al origen
+        Stack<Nodo> pila = new Stack<Nodo>();
+        while(tmp != null) {
+            pila.add(tmp);
+            tmp = tmp.procedencia;
+        }
+        String ruta = "";
+        // recorre la pila para armar la ruta en el orden correcto
+        while(!pila.isEmpty()) ruta+=(pila.pop().id + " ");
+        return distancia + ": " + ruta;
+    }
 
 public class PruebaDIJKSTRA {
 
